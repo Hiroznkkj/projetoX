@@ -1,4 +1,4 @@
-// Variável para controlar se o script deve chutar ou esperar pelo usuário
+// Variável para controlar se o script deve chutar ou não, true para chutar, false para não
 let chutarQuiz = true;
 
 // Variável para controlar o tempo entre a verificação de cada página
@@ -16,7 +16,7 @@ function testQuizOptions() {
     return;
   }
 
-  // Seleciona todos os radio buttons
+  // Seleciona todos os buttons
   const radioButtons = document.querySelectorAll("md-radio-button");
   if (radioButtons.length === 0) {
     console.log("Nenhuma opção encontrada.");
@@ -34,7 +34,7 @@ function testQuizOptions() {
 
   // Clica na opção aleatória
   option.click();
-  console.log("Opção aleatória testada:", option);
+  
 
   setTimeout(() => {
     clickConfirmButton();
@@ -140,4 +140,4 @@ document.addEventListener('scroll', function() {}, { passive: true });
 // Inicia o clique automático
 startQuizAutomation();
 
-// Para parar o clique automático, chame a função stopQuizAutomation() no console
+// para fechar a automatização digite : stopQuizAutomation();
