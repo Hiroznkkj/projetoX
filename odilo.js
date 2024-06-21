@@ -34,6 +34,7 @@ function testQuizOptions() {
 
   // Clica na opção aleatória
   option.click();
+  console.log("Opção selecionada:", option);
   
 
   setTimeout(() => {
