@@ -1,5 +1,5 @@
-// Variável para controlar se o script deve chutar ou não, true para chutar, false para não
-let chutarQuiz = false;
+// Variável para controlar se o script deve chutar ou esperar pelo usuário
+let chutarQuiz = true;
 
 // Variável para controlar o tempo entre a verificação de cada página
 let intervaloTempoPagina = 20000;
@@ -11,31 +11,47 @@ function checkForQuiz() {
 
 // Função para encontrar e testar uma opção aleatória do quiz
 function testQuizOptions() {
-  if (!chutarQuiz) {
-    notificarUsuario();
-    return;
-  }
-
-  // Seleciona todos os buttons
+  // Seleciona todas as opções do quiz
   const radioButtons = document.querySelectorAll("md-radio-button");
+
   if (radioButtons.length === 0) {
     console.log("Nenhuma opção encontrada.");
     return;
   }
 
-  // Escolhe um índice aleatório
-  const randomIndex = Math.floor(Math.random() * radioButtons.length);
-  const option = radioButtons[randomIndex];
+  // Verifica se existe uma opção com aria-label="resposta correta"
+  let correctOption = null;
+  radioButtons.forEach(button => {
+    const ariaLabel = button.getAttribute('aria-label');
+    if (ariaLabel && ariaLabel.includes('resposta correta')) {
+      correctOption = button;
+    }
+  });
 
-  if (!option) {
-    console.log("Opção não encontrada no índice:", randomIndex);
-    return;
+  if (correctOption) {
+    // Se encontrar uma opção correta, clica nela
+    correctOption.click();
+    console.log("Opção correta identificada e clicada:", correctOption);
+  } else {
+    // Se não encontrar, e se chutarQuiz for true, chuta uma resposta aleatoriamente
+    if (!chutarQuiz) {
+      notificarUsuario();
+      return;
+    }
+
+    // Escolhe um índice aleatório
+    const randomIndex = Math.floor(Math.random() * radioButtons.length);
+    const option = radioButtons[randomIndex];
+
+    if (!option) {
+      console.log("Opção não encontrada no índice:", randomIndex);
+      return;
+    }
+
+    // Clica na opção aleatória
+    option.click();
+    console.log("Opção aleatória testada:", option);
   }
-
-  // Clica na opção aleatória
-  option.click();
-  console.log("Opção selecionada:", option);
-  
 
   setTimeout(() => {
     clickConfirmButton();
@@ -71,7 +87,7 @@ function clickCloseButton() {
 function notificarUsuario() {
   console.log("Quiz identificado. Esperando a resposta do usuário.");
   // Tentativa de tocar um som
-  const audio = new Audio('https://www.soundjay.com/phone/telephone-ring-03a.mp3');
+  const audio = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
   audio.play().catch((error) => {
     console.log("Erro ao tentar tocar o som:", error);
   });
@@ -141,4 +157,4 @@ document.addEventListener('scroll', function() {}, { passive: true });
 // Inicia o clique automático
 startQuizAutomation();
 
-// para fechar a automatização digite : stopQuizAutomation();
+// Para parar o clique automático, chame a função stopQuizAutomation() no console
