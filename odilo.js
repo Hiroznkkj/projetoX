@@ -1,5 +1,5 @@
 // Variável para controlar se o script deve chutar ou não, true para chutar, false para não
-let chutarQuiz = true;
+let chutarQuiz = false;
 
 // Variável para controlar o tempo entre a verificação de cada página
 let intervaloTempoPagina = 20000;
