@@ -1,7 +1,7 @@
-// Variável para controlar se o script deve chutar ou esperar
+// Variável para controlar se o script deve chutar ou esperar pelo usuário
 let chutarQuiz = true;
 
-// Variável para controlar o tempo entre as paginas do livro
+// Variável para controlar o tempo entre a verificação de cada página
 let intervaloTempoPagina = 20000;
 
 // Função para verificar a presença do quiz
@@ -11,7 +11,7 @@ function checkForQuiz() {
 
 // Função para encontrar e testar uma opção aleatória do quiz
 function testQuizOptions() {
-  // Seleciona todas as opções do quiz para tentar encontrar a correta ( vai chutar se não encontrar a verdadeira )
+  // Seleciona todas as opções do quiz
   const radioButtons = document.querySelectorAll("md-radio-button");
 
   if (radioButtons.length === 0) {
@@ -56,8 +56,11 @@ function testQuizOptions() {
   setTimeout(() => {
     clickConfirmButton();
     setTimeout(() => {
-      clickCloseButton();
-    }, 500); // Atraso de 0.5 segundo para clicar no botão de fechamento
+      verificarPontuacao();
+      setTimeout(() => {
+        clickCloseButton();
+      }, 500); // Atraso de 0.5 segundo para clicar no botão de fechamento
+    }, 500); // Atraso de 0.5 segundo para verificar a pontuação após clicar no botão de confirmação
   }, 500); // Atraso de 0.5 segundo para clicar no botão de confirmação
 }
 
@@ -80,6 +83,21 @@ function clickCloseButton() {
     console.log("Botão de fechamento clicado!");
   } else {
     console.log("Botão de fechamento não encontrado!");
+  }
+}
+
+// Função para verificar a pontuação
+function verificarPontuacao() {
+  const scoreElement = document.querySelector(".current-score.ng-binding");
+  if (scoreElement) {
+    const score = parseInt(scoreElement.textContent.trim(), 10);
+    if (score === 10) {
+      console.log("Você acertou o teste!");
+    } else {
+      console.log("Você errou o teste.");
+    }
+  } else {
+    console.log("Elemento de pontuação não encontrado.");
   }
 }
 
@@ -157,4 +175,4 @@ document.addEventListener('scroll', function() {}, { passive: true });
 // Inicia o clique automático
 startQuizAutomation();
 
-// Para parar o clique automático, stopQuizAutomation(); deus abençoe
+// Para parar o clique automático, chame a função stopQuizAutomation() no console
