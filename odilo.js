@@ -2,7 +2,7 @@
 let chutarQuiz = true;
 
 // Variável para controlar o tempo entre a verificação de cada página
-let intervaloTempoPagina = 20000;
+let intervaloTempoPagina = 60000;
 
 // Função para verificar a presença do quiz
 function checkForQuiz() {
