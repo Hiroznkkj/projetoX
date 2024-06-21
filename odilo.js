@@ -1,7 +1,7 @@
-// Variável para controlar se o script deve chutar ou esperar pelo usuário
+// Variável para controlar se o script deve chutar ou esperar
 let chutarQuiz = true;
 
-// Variável para controlar o tempo entre a verificação de cada página
+// Variável para controlar o tempo entre as paginas do livro
 let intervaloTempoPagina = 20000;
 
 // Função para verificar a presença do quiz
@@ -11,7 +11,7 @@ function checkForQuiz() {
 
 // Função para encontrar e testar uma opção aleatória do quiz
 function testQuizOptions() {
-  // Seleciona todas as opções do quiz
+  // Seleciona todas as opções do quiz para tentar encontrar a correta ( vai chutar se não encontrar a verdadeira )
   const radioButtons = document.querySelectorAll("md-radio-button");
 
   if (radioButtons.length === 0) {
@@ -157,4 +157,4 @@ document.addEventListener('scroll', function() {}, { passive: true });
 // Inicia o clique automático
 startQuizAutomation();
 
-// Para parar o clique automático, chame a função stopQuizAutomation() no console
+// Para parar o clique automático, stopQuizAutomation(); deus abençoe
