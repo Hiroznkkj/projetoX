@@ -1,12 +1,12 @@
 // Variável para controlar o tempo entre as ações
 let intervaloTempoPagina = 60000;
 
-// Função para verificar se o quiz está ativo
+
 function checkForQuiz() {
   return document.querySelector("body > div.md-dialog-container.ng-scope") !== null;
 }
 
-// Função para selecionar uma opção aleatória
+
 function selecionarOpcaoAleatoria() {
   const radioButtons = document.querySelectorAll("md-radio-button");
   if (radioButtons.length === 0) {
@@ -14,7 +14,7 @@ function selecionarOpcaoAleatoria() {
     return false;
   }
 
-  // Escolhe uma opção aleatória
+  
   const randomIndex = Math.floor(Math.random() * radioButtons.length);
   const randomOption = radioButtons[randomIndex];
 
@@ -28,9 +28,9 @@ function selecionarOpcaoAleatoria() {
   return false;
 }
 
-// Função para clicar no botão "Próxima Questão"
+
 function clicarBotaoProximaQuestao(isFirstQuestion) {
-  // Seleciona o botão "Próxima Questão" com base na posição
+  
   const nextQuestionButton = isFirstQuestion
     ? document.querySelector(
         "body > div.md-dialog-container.ng-scope > md-dialog > form > md-dialog-actions > button > span"
@@ -49,7 +49,7 @@ function clicarBotaoProximaQuestao(isFirstQuestion) {
   return false;
 }
 
-// Função para verificar e clicar no botão "Terminar"
+
 function clicarBotaoTerminar() {
   const finishButton = document.querySelector(
     "body > div.md-dialog-container.ng-scope > md-dialog > form > md-dialog-actions > button.md-raised.md-primary.md-button.ng-scope.md-ink-ripple > span"
@@ -65,7 +65,7 @@ function clicarBotaoTerminar() {
   return false;
 }
 
-// Função para clicar no botão "Enviar Respostas"
+
 function clicarBotaoEnviarRespostas() {
   const submitButton = document.querySelector(
     "body > div.md-dialog-container.ng-scope > md-dialog > form > md-dialog-actions > button.md-raised.md-primary.md-button.ng-scope.md-ink-ripple"
@@ -81,7 +81,7 @@ function clicarBotaoEnviarRespostas() {
   return false;
 }
 
-// Função para clicar no botão de fechamento do quiz
+
 function clicarBotaoFecharQuiz() {
   const closeButton = document.querySelector(
     "body > div.md-dialog-container.ng-scope > md-dialog > md-toolbar > div > button > md-icon"
@@ -97,9 +97,9 @@ function clicarBotaoFecharQuiz() {
   return false;
 }
 
-// Função principal para gerenciar o fluxo do quiz
+
 function handleQuizFlow() {
-  let isFirstQuestion = true; // Controla se é a primeira questão
+  let isFirstQuestion = true; 
 
   const intervalLoop = setInterval(() => {
     if (!checkForQuiz()) {
@@ -108,29 +108,27 @@ function handleQuizFlow() {
       return;
     }
 
-    // Verifica se o botão "Terminar" está disponível
+    
     if (clicarBotaoTerminar()) {
       setTimeout(() => {
         clicarBotaoEnviarRespostas();
         setTimeout(() => {
           clicarBotaoFecharQuiz();
-        }, 500); // Espera para clicar no botão de fechar
-      }, 500); // Espera para clicar no botão de enviar
+        }, 500); 
+      }, 500); 
       clearInterval(intervalLoop);
       return;
     }
-
-    // Tenta selecionar uma opção aleatória e clicar em "Próxima Questão"
     if (selecionarOpcaoAleatoria()) {
       setTimeout(() => {
         clicarBotaoProximaQuestao(isFirstQuestion);
-        isFirstQuestion = false; // Após a primeira questão, muda o controle
-      }, 500); // Espera para clicar no botão de próxima questão
+        isFirstQuestion = false; 
+      }, 500); 
     }
-  }, 1000); // Intervalo curto para repetição do loop
+  }, 1000); 
 }
 
-// Função para iniciar a automação do quiz
+
 function startQuizAutomation() {
   console.log("Iniciando automação do quiz...");
 
@@ -151,7 +149,7 @@ function startQuizAutomation() {
   }, intervaloTempoPagina);
 }
 
-// Função para parar a automação
+
 function stopQuizAutomation() {
   if (intervalId) {
     clearInterval(intervalId);
@@ -161,5 +159,4 @@ function stopQuizAutomation() {
   }
 }
 
-// Inicia a automação do quiz
 startQuizAutomation();
